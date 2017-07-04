@@ -26,10 +26,8 @@ local validators = require "resty.jwt-validators"
 local claim_spec = {
     validators.set_system_leeway(5), -- time in seconds
     exp = validators.is_not_expired(),
-    -- iat = validators.is_not_before(),
-    -- iss = validators.opt_matches("^http[s]?://yourdomain.auth0.com/$"),
-    -- sub = validators.matches("^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$"),
-    -- name = validators.equals_any_of({ "John Doe", "Mallory", "Alice", "Bob" }),
+    -- user id should be in uuid format
+    sub = validators.matches("^%x%x%x%x%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%-%x%x%x%x%x%x%x%x%x%x%x%x$")
 }
 
 -- make sure to set and put "env JWT_SECRET;" in nginx.conf
